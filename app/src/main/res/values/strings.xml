@@ -12,4 +12,15 @@
     <string name="gasto_promedio_mensual">Gasto Promedio Mensual:</string>
     <string name="resumen_de_estadisticas">Resumen de estadisticas</string>
     <string name="categoria_con_mayor_gasto">Categoria con mayor gasto:</string>
+    <string name="dashboard" translatable="false">Dashboard</string>
+    <string name="gasto_total_mes" translatable="false">Gasto total del mes</string>
+    <string name="gasto_mensual" translatable="false">$ 1,250 Gastado en abril</string>
+    <string name="resumen" translatable="false">Resumen</string>
+    <string name="prespuesto" translatable="false">Presupuesto: $ 2,000</string>
+    <string name="gasto_categoria" translatable="false">Gasto por categoria</string>
+    <string name="porcentaje_objetivo" translatable="false">Porcentaje del objetivo alcanzado</string>
+    <string-array name="opciones_spinner">
+        <item>Mensual</item>
+        <item>Semanal</item>
+    </string-array>
 </resources>
