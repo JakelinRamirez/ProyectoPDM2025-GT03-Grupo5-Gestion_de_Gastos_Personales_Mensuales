@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">ProyectoPDM2025-GT03-Grupo5-Gestion_de_Gastos_Personales_Mensuales</string>
+    <string name="app_name" translatable="false">ProyectoPDM2025-GT03-Grupo5-Gestion_de_Gastos_Personales_Mensuales</string>
+    <string name="text_analisisDeGastos" translatable="false">Análisis de gastos</string>
+    <string name="flecha" translatable="false">Flecha</string>
+    <string name="calendario" translatable="false">Calendario</string>
+    <string name="categoriaSeleccion" translatable="false">Categoria</string>
+    <string name="periodoSeleccion" translatable="false">Periodo</string>
+    <string name="grafico" translatable="false">Grafico</string>
+    <string name="mes1Seleccion" translatable="false">Mes1</string>
+    <string name="mes2Seleccion" translatable="false">Mes2</string>
+    <string name="comparar_dos_meses">Comparar dos meses</string>
+    <string name="gasto_promedio_mensual">Gasto Promedio Mensual:</string>
+    <string name="resumen_de_estadisticas">Resumen de estadisticas</string>
+    <string name="categoria_con_mayor_gasto">Categoria con mayor gasto:</string>
 </resources>

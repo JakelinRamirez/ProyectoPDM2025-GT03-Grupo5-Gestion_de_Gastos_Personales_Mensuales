@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Categorias">
+        <item>Todas las categorias</item>
+        <item>Alimentacion</item>
+        <item>Tansporte</item>
+        <item>Facturas</item>
+        <item>Salud</item>
+        <item>Entretenimiento</item>
+    </string-array>
+    <string-array name="Periodos">
+        <item>Semanas</item>
+        <item>Meses</item>
+        <item>Diarios</item>
+    </string-array>
+    <string-array name="Mes">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+
+    </string-array>
+</resources>
