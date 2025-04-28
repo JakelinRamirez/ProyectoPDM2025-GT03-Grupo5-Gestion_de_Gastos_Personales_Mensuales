@@ -23,4 +23,11 @@
         <item>Mensual</item>
         <item>Semanal</item>
     </string-array>
+    <string name="registro_gasto" translatable="false">Registro de Gasto</string>
+    <string name="monto" translatable="false">Monto</string>
+    <string name="ingrese_monto" translatable="false">Ingrese un Monto</string>
+    <string name="descripcion" translatable="false">Descripción</string>
+    <string name="ingrese_descripcion" translatable="false">Ingrese una descripcion</string>
+    <string name="fecha" translatable="false">Fecha</string>
+    <string name="categoria" translatable="false">Categoria</string>
 </resources>

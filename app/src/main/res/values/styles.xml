@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.DatePicker.Spinner" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+        <!-- opcional: desactiva la vista de calendario -->
+        <item name="android:calendarViewShown">false</item>
+    </style>
+
+</resources>
