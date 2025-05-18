@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "193605473626",
+    "project_id": "proyectopdm2025-gt03-grupo5",
+    "storage_bucket": "proyectopdm2025-gt03-grupo5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193605473626:android:3b63ba96d99d3e6e9e4f63",
+        "android_client_info": {
+          "package_name": "com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKx2pWmMIKJQbxfdjCpDzxauBFyCKE3Kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

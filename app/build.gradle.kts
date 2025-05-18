@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.services)
+
 }
 
 android {
@@ -42,6 +44,11 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.mpandroidchart)
+
+    // Firebase (nuevas dependencias)
+    implementation(platform(libs.firebase.bom))  // Bill of Materials
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)  // Opcional para login con Google
 
 
 
