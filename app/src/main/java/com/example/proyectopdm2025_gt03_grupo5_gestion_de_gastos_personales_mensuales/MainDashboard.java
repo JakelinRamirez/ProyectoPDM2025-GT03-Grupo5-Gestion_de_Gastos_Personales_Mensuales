@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.animation.ObjectAnimator;
 import android.Manifest;
@@ -24,6 +25,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.pdfview.PDFView;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -39,8 +42,22 @@ public class MainDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        PDFView pdfView;
+        Button btnShowPDF;
+        pdfView = findViewById(R.id.pdfView);
+        btnShowPDF = findViewById(R.id.button2);
 
-        // Configurar gráfico de pastel
+        btnShowPDF.setOnClickListener(v -> {
+            if (pdfView.getVisibility() == View.GONE) {
+                pdfView.setVisibility(View.VISIBLE);
+                pdfView.fromAsset("politicas_privacidad.pdf").show();
+                btnShowPDF.setText("Ocultar PDF");
+            } else {
+                pdfView.setVisibility(View.GONE);
+                btnShowPDF.setText("Mostrar PDF");
+            }
+        });
+
         pieChart = findViewById(R.id.pieChart);
         Log.d("Dashboard", "PieChart encontrado? " + (pieChart != null));
 

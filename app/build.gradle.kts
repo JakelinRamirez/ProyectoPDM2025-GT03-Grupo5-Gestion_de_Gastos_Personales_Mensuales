@@ -50,6 +50,10 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)  // Opcional para login con Google
 
+    // PDF Viewer
+    implementation(libs.android.pdf.viewer)
+
+
 
 
 

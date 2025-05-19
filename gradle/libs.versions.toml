@@ -13,6 +13,9 @@ firebase-auth = "22.3.0"
 firebase-bom = "32.7.0"
 play-services-auth = "20.7.0"
 google-services = "4.4.0"  # Nueva versión para el plugin
+# Añade estas nuevas versiones para PDF Viewer
+pdfviewer = "1.1.0"
+pdfium = "1.9.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -27,6 +30,10 @@ mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
+# Nuevas librerías para PDF Viewer
+android-pdf-viewer = {module= "com.dmitryborodin:pdfview-android", version.ref="pdfviewer"}
+
+
 
 [plugins]
 # ... tus plugins existentes ...
