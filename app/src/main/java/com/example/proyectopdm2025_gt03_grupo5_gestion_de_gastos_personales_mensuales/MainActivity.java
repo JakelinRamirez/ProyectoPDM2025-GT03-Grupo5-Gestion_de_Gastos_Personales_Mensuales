@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        DBHelper dbh = new DBHelper(this);
+        dbh.getWritableDatabase(); // dispara onCreate() si la BD no existe
 
 
 
