@@ -1,219 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainDashboard">
 
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@eifnfi.com" />
-
-    <View
-        android:id="@+id/view2"
+    <!-- Contenido principal -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#4B0082"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="117dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/dashboard"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        <!-- Barra superior morada -->
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="#4B0082"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="104dp"
-        android:text="@string/resumen"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="144dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginTop="96dp"
-        android:entries="@array/opciones_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="208dp"
-        android:text="@string/gasto_total_mes"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:layout_width="301dp"
-        android:layout_height="109dp"
-        android:background="@drawable/rounded_background"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="265dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        <!-- Icono de menú hamburguesa -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/menuIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gasto_mensual"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+            <View
+                android:layout_width="24dp"
+                android:layout_height="2dp"
+                android:background="@color/white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/prespuesto"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:layout_marginTop="4dp"/>
+            <View
+                android:layout_width="24dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/white" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/white" />
         </LinearLayout>
-    </FrameLayout>
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="404dp"
-        android:text="@string/gasto_categoria"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="436dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.414"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
+        <!-- Título Dashboard -->
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="756dp"
-            android:text="@string/porcentaje_objetivo"
+            android:layout_marginStart="16dp"
+            android:text="@string/dashboard"
+            android:textColor="@color/white"
             android:textSize="24sp"
-            android:textStyle="bold" />
-    </com.github.mikephil.charting.charts.PieChart>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/view2"
+            app:layout_constraintStart_toEndOf="@id/menuIcon"
+            app:layout_constraintTop_toTopOf="@id/view2" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="304dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="72dp"
-        android:max="100"
-        android:progress="70"
-        android:progressDrawable="@drawable/custom_progress_horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pieChart" />
+        <!-- Sección Resumen -->
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/resumen"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view2" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="808dp"
-        android:text="70%"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- Spinner para filtros -->
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="144dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:entries="@array/opciones_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView8" />
+
+        <!-- Sección Gasto Total -->
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/gasto_total_mes"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView8" />
+
+        <!-- Tarjeta de gasto mensual -->
+        <FrameLayout
+            android:id="@+id/monthlyCard"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gasto_mensual"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/prespuesto"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Sección Gastos por Categoría -->
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/gasto_categoria"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/monthlyCard" />
+
+        <!-- Gráfico de pastel -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="436dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.414"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="756dp"
+                android:text="@string/porcentaje_objetivo"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </com.github.mikephil.charting.charts.PieChart>
 
 
-    <LinearLayout
-        android:id="@+id/menuIcon"
-        android:layout_width="43dp"
-        android:layout_height="42dp"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Línea 1 -->
-        <View
-            android:layout_width="32dp"
-            android:layout_height="2dp"
-            android:background="@color/white" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="304dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="72dp"
+            android:max="100"
+            android:progress="70"
+            android:progressDrawable="@drawable/custom_progress_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChart"
+            />
 
-        <!-- Línea 2 -->
-        <View
-            android:layout_width="32dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/white" />
+        <!-- Porcentaje -->
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="808dp"
+            android:text="70%"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-        <!-- Línea 3 -->
-        <View
-            android:layout_width="32dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/white" />
-    </LinearLayout>
+        <!-- Botón PDF -->
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mostrar PDF"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="8dp" />
-    <com.pdfview.PDFView
-        android:id="@+id/pdfView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Visor PDF (oculto inicialmente) -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mostrar PDF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <com.pdfview.PDFView
+            android:id="@+id/pdfView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/button2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Menú lateral -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#4B0082"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/dashboard_menu"
+        tools:ignore="ResourceCycle" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

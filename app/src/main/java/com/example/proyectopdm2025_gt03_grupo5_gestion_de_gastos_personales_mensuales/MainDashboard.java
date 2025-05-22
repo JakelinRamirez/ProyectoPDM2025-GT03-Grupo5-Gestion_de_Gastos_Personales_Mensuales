@@ -9,22 +9,29 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.animation.ObjectAnimator;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.ui.register.RegisterActivity;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.navigation.NavigationView;
 import com.pdfview.PDFView;
 import android.widget.Button;
 
@@ -41,6 +48,7 @@ public class MainDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_dashboard);
         PDFView pdfView;
         Button btnShowPDF;
@@ -84,6 +92,30 @@ public class MainDashboard extends AppCompatActivity {
         // Configurar notificación de bienvenida
         createNotificationChannel();
         checkAndShowNotification();
+
+        // Configuración para menu desplegable
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        LinearLayout menuIcon = findViewById(R.id.menuIcon);
+
+// Abrir el menú al hacer clic en el ícono
+        menuIcon.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+
+// Manejar clics en los items del menú
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.registrar_gastos) {
+                // Acción para registrar gastos
+            } else if (id == R.id.analisis) {
+                // Acción para análisis
+            } else if (id == R.id.objetivos) {
+                // Acción para establecer objetivos
+            } // ... y así con los demás ítems
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
     }
 
     private void createNotificationChannel() {

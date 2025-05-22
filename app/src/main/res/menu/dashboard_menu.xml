@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/registrar_gastos" android:title="Registrar gastos" />
+    <item android:id="@+id/analisis" android:title="Análisis" />
+    <item android:id="@+id/objetivos" android:title="Establecer objetivos" />
+    <item android:id="@+id/categorias" android:title="Categorias" />
+    <item android:id="@+id/exportar_datos" android:title="Exportar Datos" />
+    <item android:id="@+id/crear_recordatorios" android:title="Crear Recordatorios" />
+    <item android:id="@+id/configuracion" android:title="Configuracionn" />
+</menu>

@@ -53,8 +53,8 @@ dependencies {
     // PDF Viewer
     implementation(libs.android.pdf.viewer)
 
-
-
+    // Libreria para menu desplegable
+    implementation(libs.android.drawerlayout)
 
 
 }

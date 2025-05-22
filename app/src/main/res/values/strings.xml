@@ -30,4 +30,14 @@
     <string name="ingrese_descripcion" translatable="false">Ingrese una descripcion</string>
     <string name="fecha" translatable="false">Fecha</string>
     <string name="categoria" translatable="false">Categoria</string>
+
+    <string-array name="menu_items">
+        <item>Registrar gastos</item>
+        <item>Análisis</item>
+        <item>Establecer objetivos</item>
+        <item>Categorías</item>
+        <item>Exportar datos</item>
+        <item>Crear recordatorios</item>
+        <item>Configuración</item>
+    </string-array>
 </resources>
