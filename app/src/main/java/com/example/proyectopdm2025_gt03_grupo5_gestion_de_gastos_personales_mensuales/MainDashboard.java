@@ -4,6 +4,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -116,6 +118,9 @@ public class MainDashboard extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
+
+        OneTimeWorkRequest trabajo = new OneTimeWorkRequest.Builder(TareaWorker.class).build();
+        WorkManager.getInstance(this).enqueue(trabajo);
     }
 
     private void createNotificationChannel() {
