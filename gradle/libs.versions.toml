@@ -17,6 +17,7 @@ google-services = "4.4.0"  # Nueva versión para el plugin
 pdfviewer = "1.1.0"
 layout = "1.2.0"
 materia = "1.9.0"
+workmanager = "2.10.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -34,7 +35,7 @@ play-services-auth = { group = "com.google.android.gms", name = "play-services-a
 # Nuevas librerías para PDF Viewer
 android-pdf-viewer = {module= "com.dmitryborodin:pdfview-android", version.ref="pdfviewer"}
 android-drawerlayout = {module="androidx.drawerlayout:drawerlayout",version.ref="layout"}
-
+androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workmanager" }
 
 
 [plugins]

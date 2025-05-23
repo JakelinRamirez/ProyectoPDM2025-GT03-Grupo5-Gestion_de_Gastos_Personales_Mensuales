@@ -56,5 +56,6 @@ dependencies {
     // Libreria para menu desplegable
     implementation(libs.android.drawerlayout)
 
-
+    // Core runtime de WorkManager (Java)
+    implementation(libs.androidx.work.runtime)
 }
