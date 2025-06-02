@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,19 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoPDM2025GT03Grupo5Gestion_de_Gastos_Personales_Mensuales"
         tools:targetApi="31">
-
         <activity
-            android:name=".Login"
+            android:name=".AnalisisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarGastoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".MainDashboard" />
         <activity android:name=".ui.analysis.AnalysisActivity" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

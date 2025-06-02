@@ -15,7 +15,7 @@ public class AnalysisActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analysis);
+        setContentView(R.layout.activity_analisis);
         //Arreglo del spinner 1
         comboCategoria=(Spinner) findViewById(R.id.spinnerCategorias);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Categorias, android.R.layout.simple_spinner_item);

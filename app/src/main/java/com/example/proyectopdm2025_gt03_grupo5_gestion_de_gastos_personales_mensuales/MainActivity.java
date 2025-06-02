@@ -1,49 +1,67 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
-import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.ui.analysis.AnalysisActivity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.DBHelper;
 
+import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.ui.dashboard.DashboardActivity;
 
 public class MainActivity extends AppCompatActivity {
-    Spinner comboCategoria;
-    Spinner comboCategoria2;
+
+    private EditText editCorreo, editContraseña;
+    private Button buttonLogin;
+    private TextView txtRegistrate;
+    private DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        DBHelper dbh = new DBHelper(this);
-        dbh.getWritableDatabase(); // dispara onCreate() si la BD no existe
 
+        editCorreo = findViewById(R.id.editCorreo);
+        editContraseña = findViewById(R.id.editContraseña);
+        buttonLogin = findViewById(R.id.buttonLogin);
+        txtRegistrate = findViewById(R.id.Registrate);
 
+        dbHelper = new DBHelper(this);
 
+        buttonLogin.setOnClickListener(view -> verificarUsuario());
 
+        txtRegistrate.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, RegistroUsuarioActivity.class);
+            startActivity(intent);
+        });
+    }
 
-        // Crear un Intent para abrir AnalysisActivity automáticamente
-        Intent intent = new Intent(MainActivity.this, AnalysisActivity.class);
-        startActivity(intent);  // Iniciar AnalysisActivity
+    private void verificarUsuario() {
+        String correo = editCorreo.getText().toString().trim();
+        String contrasena = editContraseña.getText().toString().trim();
 
-        // Opcional: Finalizar MainActivity si no quieres que el usuario regrese a esta actividad
-        finish();
+        if (correo.isEmpty() || contrasena.isEmpty()) {
+            Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Usuario WHERE email = ? AND contrasena = ?", new String[]{correo, contrasena});
 
+        if (cursor.moveToFirst()) {
+            // Usuario válido
+            Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, MainDashboard.class);
+            startActivity(intent);
+            finish(); // evita volver atrás con botón
+        } else {
+            Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+        }
 
-
+        cursor.close();
+        db.close();
     }
 }
+
+
 

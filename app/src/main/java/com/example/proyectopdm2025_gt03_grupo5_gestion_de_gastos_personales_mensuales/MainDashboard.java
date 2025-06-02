@@ -108,9 +108,11 @@ public class MainDashboard extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.registrar_gastos) {
-                // Acción para registrar gastos
+                Intent intent = new Intent(MainDashboard.this, RegistrarGastoActivity.class);
+                startActivity(intent);
             } else if (id == R.id.analisis) {
-                // Acción para análisis
+                Intent intent = new Intent(MainDashboard.this, AnalisisActivity.class);
+                startActivity(intent);
             } else if (id == R.id.objetivos) {
                 // Acción para establecer objetivos
             } // ... y así con los demás ítems
