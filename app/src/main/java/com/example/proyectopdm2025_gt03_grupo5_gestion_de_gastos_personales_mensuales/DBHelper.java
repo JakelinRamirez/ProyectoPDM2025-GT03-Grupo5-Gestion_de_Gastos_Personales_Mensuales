@@ -1,11 +1,12 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME    = "bd_gestor_gastos.db";
-    private static final int    DB_VERSION = 1;
+    private static final int    DB_VERSION = 2;
 
     public DBHelper(Context ctx) {
         super(ctx, DB_NAME, null, DB_VERSION);
@@ -32,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         ");"
         );
 
+
         // 3. Métodos de pago
         db.execSQL(
                 "CREATE TABLE IF NOT EXISTS MetodoPago (" +
@@ -39,6 +41,14 @@ public class DBHelper extends SQLiteOpenHelper {
                         " nombre TEXT NOT NULL" +
                         ");"
         );
+
+// Insertar datos predeterminados
+        db.execSQL("INSERT INTO MetodoPago (nombre) VALUES ('Efectivo');");
+        db.execSQL("INSERT INTO MetodoPago (nombre) VALUES ('Tarjeta de crédito');");
+        db.execSQL("INSERT INTO MetodoPago (nombre) VALUES ('Tarjeta de débito');");
+        db.execSQL("INSERT INTO MetodoPago (nombre) VALUES ('Transferencia bancaria');");
+
+
 
         // 4. Gastos
         db.execSQL(
@@ -145,4 +155,40 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Usuario");
         onCreate(db);
     }
+
+    // Método para obtener el total de gasto del mes actual
+    public double obtenerTotalGastoDelMes() {
+        double total = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT SUM(monto) FROM Gasto WHERE strftime('%Y-%m', fecha) = strftime('%Y-%m', date('now'))", null);
+
+        if (cursor.moveToFirst()) {
+            total = cursor.getDouble(0);
+        }
+
+        cursor.close();
+        db.close();
+        return total;
+    }
+
+    // Método para obtener el objetivo mensual (más reciente)
+    public double obtenerObjetivoMensual() {
+        double objetivo = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT monto_limite FROM Objetivo WHERE tipo = 'Mensual' " +
+                        "AND strftime('%Y-%m', fecha_inicio) <= strftime('%Y-%m', date('now')) " +
+                        "AND (fecha_fin IS NULL OR strftime('%Y-%m', fecha_fin) >= strftime('%Y-%m', date('now'))) " +
+                        "ORDER BY fecha_inicio DESC LIMIT 1", null);
+
+        if (cursor.moveToFirst()) {
+            objetivo = cursor.getDouble(0);
+        }
+
+        cursor.close();
+        db.close();
+        return objetivo;
+    }
+
 }

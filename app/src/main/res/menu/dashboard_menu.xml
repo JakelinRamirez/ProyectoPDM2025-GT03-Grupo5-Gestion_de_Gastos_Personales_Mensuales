@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/inicio" android:title="Inicio" />
     <item android:id="@+id/registrar_gastos" android:title="Registrar gastos" />
     <item android:id="@+id/analisis" android:title="Análisis" />
     <item android:id="@+id/objetivos" android:title="Establecer objetivos" />

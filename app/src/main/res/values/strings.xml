@@ -30,6 +30,9 @@
     <string name="ingrese_descripcion" translatable="false">Ingrese una descripcion</string>
     <string name="fecha" translatable="false">Fecha</string>
     <string name="categoria" translatable="false">Categoria</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú</string>
+
 
     <string-array name="menu_items">
         <item>Registrar gastos</item>

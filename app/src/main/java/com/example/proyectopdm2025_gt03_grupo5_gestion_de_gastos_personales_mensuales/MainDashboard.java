@@ -18,6 +18,10 @@ import android.animation.ObjectAnimator;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
@@ -27,7 +31,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.ui.register.RegisterActivity;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -52,10 +55,9 @@ public class MainDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_dashboard);
-        PDFView pdfView;
-        Button btnShowPDF;
-        pdfView = findViewById(R.id.pdfView);
-        btnShowPDF = findViewById(R.id.button2);
+
+        PDFView pdfView = findViewById(R.id.pdfView);
+        Button btnShowPDF = findViewById(R.id.button2);
 
         btnShowPDF.setOnClickListener(v -> {
             if (pdfView.getVisibility() == View.GONE) {
@@ -71,58 +73,103 @@ public class MainDashboard extends AppCompatActivity {
         pieChart = findViewById(R.id.pieChart);
         Log.d("Dashboard", "PieChart encontrado? " + (pieChart != null));
 
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(40f, "Comida"));
-        entries.add(new PieEntry(30f, "Transporte"));
-        entries.add(new PieEntry(20f, "Entretenimiento"));
-        entries.add(new PieEntry(10f, "Otros"));
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        PieDataSet dataSet = new PieDataSet(entries, "Gastos");
+        Cursor cursor = db.rawQuery(
+                "SELECT c.nombre, SUM(g.monto) FROM Gasto g " +
+                        "JOIN Categoria c ON g.categoria_id = c.id " +
+                        "WHERE strftime('%Y-%m', g.fecha) = strftime('%Y-%m', date('now')) " +
+                        "GROUP BY c.nombre", null);
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        double totalGastos = 0;
+        while (cursor.moveToNext()) {
+            String categoria = cursor.getString(0);
+            float monto = (float) cursor.getDouble(1);
+            totalGastos += monto;
+            entries.add(new PieEntry(monto, categoria));
+        }
+        cursor.close();
+
+        double objetivoMensual = 0;
+        Cursor objetivoCursor = db.rawQuery(
+                "SELECT monto_limite FROM Objetivo WHERE tipo = 'Mensual' " +
+                        "AND strftime('%Y-%m', fecha_inicio) <= strftime('%Y-%m', date('now')) " +
+                        "AND (fecha_fin IS NULL OR strftime('%Y-%m', fecha_fin) >= strftime('%Y-%m', date('now'))) " +
+                        "ORDER BY fecha_inicio DESC LIMIT 1", null);
+
+        if (objetivoCursor.moveToFirst()) {
+            objetivoMensual = objetivoCursor.getDouble(0);
+        }
+        objetivoCursor.close();
+        db.close();
+
+        TextView prespuestoText = findViewById(R.id.textView9);
+        prespuestoText.setText("Gasto Total: $" + String.format("%.2f", totalGastos));
+
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        TextView porcentajeView = findViewById(R.id.textView13);
+        int porcentaje = (objetivoMensual > 0) ? (int)((totalGastos / objetivoMensual) * 100) : 0;
+        progressBar.setProgress(porcentaje);
+        porcentajeView.setText(porcentaje + "%");
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS, 255);
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
+        pieChart.getLegend().setEnabled(false); // Oculta la leyenda completa
+        pieChart.invalidate();
 
-        // Configurar barra de progreso
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        if (progressBar != null) {
-            progressBar.setProgress(75);
-            ObjectAnimator.ofInt(progressBar, "progress", 0, 75)
-                    .setDuration(1000)
-                    .start();
-        }
-
-        // Configurar notificación de bienvenida
         createNotificationChannel();
         checkAndShowNotification();
 
-        // Configuración para menu desplegable
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.navigationView);
         LinearLayout menuIcon = findViewById(R.id.menuIcon);
 
-// Abrir el menú al hacer clic en el ícono
         menuIcon.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
-// Manejar clics en los items del menú
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-
-            if (id == R.id.registrar_gastos) {
-                Intent intent = new Intent(MainDashboard.this, RegistrarGastoActivity.class);
-                startActivity(intent);
+            if (id == R.id.inicio) {
+                startActivity(new Intent(this, MainDashboard.class));
+            } else if (id == R.id.registrar_gastos) {
+                startActivity(new Intent(this, RegistrarGastoActivity.class));
             } else if (id == R.id.analisis) {
-                Intent intent = new Intent(MainDashboard.this, AnalisisActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, AnalisisActivity.class));
             } else if (id == R.id.objetivos) {
-                // Acción para establecer objetivos
-            } // ... y así con los demás ítems
-
+                startActivity(new Intent(this, ObjetivosActivity.class));
+            } else if (id == R.id.categorias) {
+                startActivity(new Intent(this, CategoriasActivity.class));
+            } else if (id == R.id.exportar_datos) {
+                startActivity(new Intent(this, ExportarDatosActivity.class));
+            } else if (id == R.id.crear_recordatorios) {
+                startActivity(new Intent(this, RecordatoriosActivity.class));
+            } else if (id == R.id.configuracion) {
+                startActivity(new Intent(this, ConfiguracionActivity.class));
+            }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
 
         OneTimeWorkRequest trabajo = new OneTimeWorkRequest.Builder(TareaWorker.class).build();
         WorkManager.getInstance(this).enqueue(trabajo);
+
+        TextView txtMontoPresupuesto = findViewById(R.id.txtMontoPresupuesto);
+
+
+
+// Gasto total
+        double totalGasto = dbHelper.obtenerTotalGastoDelMes();
+
+// Presupuesto objetivo mensual
+        double objetivo = dbHelper.obtenerObjetivoMensual();
+
+// Actualizar texto
+        txtMontoPresupuesto.setText("Total de gasto: $" + totalGasto + "\nPresupuesto: $" + objetivo);
+
+
     }
 
     private void createNotificationChannel() {
@@ -145,23 +192,19 @@ public class MainDashboard extends AppCompatActivity {
                     == PackageManager.PERMISSION_GRANTED) {
                 showWelcomeNotification();
             } else {
-                // Opcional: puedes explicar al usuario por qué necesitas el permiso
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.POST_NOTIFICATIONS},
                         PERMISSION_REQUEST_CODE);
             }
         } else {
-            // Para versiones anteriores a Android 13, no se necesita permiso explícito
             showWelcomeNotification();
         }
     }
 
     private void showWelcomeNotification() {
-        // Verificar si tenemos permiso (solo necesario para Android 13+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
-                // No tenemos permiso, no mostrar notificación
                 Log.w("Notification", "No se tienen permisos para mostrar notificaciones");
                 return;
             }

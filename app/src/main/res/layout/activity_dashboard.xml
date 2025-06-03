@@ -8,6 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".MainDashboard">
 
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
     <!-- Contenido principal -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -123,22 +129,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtMontoPresupuesto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gasto_mensual"
+                    android:text="Cargando..."
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/prespuesto"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </FrameLayout>
+
+
 
         <!-- Sección Gastos por Categoría -->
         <TextView
@@ -156,55 +157,56 @@
         <!-- Gráfico de pastel -->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="300dp"
-            android:layout_marginTop="436dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.414"
+            app:layout_constraintTop_toBottomOf="@id/textView11"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="756dp"
-                android:text="@string/porcentaje_objetivo"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </com.github.mikephil.charting.charts.PieChart>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
 
 
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Progreso de presupuesto"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChart" />
 
+        <!-- ProgressBar debajo del gráfico -->
         <ProgressBar
             android:id="@+id/progressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="304dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="72dp"
             android:max="100"
             android:progress="70"
             android:progressDrawable="@drawable/custom_progress_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/textView15"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pieChart"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
 
         <!-- Porcentaje -->
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="808dp"
             android:text="70%"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/progressBar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
 
         <!-- Botón PDF -->
 
@@ -233,6 +235,7 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Menú lateral -->
     <com.google.android.material.navigation.NavigationView
