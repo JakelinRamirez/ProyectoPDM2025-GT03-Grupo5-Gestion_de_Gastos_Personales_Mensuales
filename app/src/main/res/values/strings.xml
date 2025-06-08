@@ -31,7 +31,7 @@
     <string name="fecha" translatable="false">Fecha</string>
     <string name="categoria" translatable="false">Categoria</string>
     <string name="navigation_drawer_open">Abrir menú</string>
-    <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="navigation_drawer_close">Cerrar menú</string>z
 
 
     <string-array name="menu_items">

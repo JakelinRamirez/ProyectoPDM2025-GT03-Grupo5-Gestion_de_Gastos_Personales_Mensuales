@@ -136,16 +136,10 @@ public class MainDashboard extends AppCompatActivity {
                 startActivity(new Intent(this, MainDashboard.class));
             } else if (id == R.id.registrar_gastos) {
                 startActivity(new Intent(this, RegistrarGastoActivity.class));
-            } else if (id == R.id.analisis) {
-                startActivity(new Intent(this, AnalisisActivity.class));
             } else if (id == R.id.objetivos) {
                 startActivity(new Intent(this, ObjetivosActivity.class));
             } else if (id == R.id.categorias) {
                 startActivity(new Intent(this, CategoriasActivity.class));
-            } else if (id == R.id.exportar_datos) {
-                startActivity(new Intent(this, ExportarDatosActivity.class));
-            } else if (id == R.id.crear_recordatorios) {
-                startActivity(new Intent(this, RecordatoriosActivity.class));
             } else if (id == R.id.configuracion) {
                 startActivity(new Intent(this, ConfiguracionActivity.class));
             }

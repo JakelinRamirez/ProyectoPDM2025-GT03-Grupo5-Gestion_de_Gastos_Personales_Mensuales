@@ -1,5 +1,7 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -81,16 +83,10 @@ public class CategoriasActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainDashboard.class));
             } else if (id == R.id.registrar_gastos) {
                 startActivity(new Intent(this, RegistrarGastoActivity.class));
-            } else if (id == R.id.analisis) {
-                startActivity(new Intent(this, AnalisisActivity.class));
             } else if (id == R.id.objetivos) {
                 startActivity(new Intent(this, ObjetivosActivity.class));
             } else if (id == R.id.categorias) {
                 startActivity(new Intent(this, CategoriasActivity.class));
-            } else if (id == R.id.exportar_datos) {
-                startActivity(new Intent(this, ExportarDatosActivity.class));
-            } else if (id == R.id.crear_recordatorios) {
-                startActivity(new Intent(this, RecordatoriosActivity.class));
             } else if (id == R.id.configuracion) {
                 startActivity(new Intent(this, ConfiguracionActivity.class));
             }

@@ -9,9 +9,7 @@
         <item>Entretenimiento</item>
     </string-array>
     <string-array name="Periodos">
-        <item>Semanas</item>
         <item>Meses</item>
-        <item>Diarios</item>
     </string-array>
     <string-array name="Mes">
         <item>Enero</item>

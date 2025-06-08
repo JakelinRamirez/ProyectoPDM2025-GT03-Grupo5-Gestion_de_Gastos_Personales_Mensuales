@@ -87,14 +87,6 @@
             app:layout_constraintTop_toBottomOf="@id/view2" />
 
         <!-- Spinner para filtros -->
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="144dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
-            android:entries="@array/opciones_spinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textView8" />
 
         <!-- Sección Gasto Total -->
         <TextView
