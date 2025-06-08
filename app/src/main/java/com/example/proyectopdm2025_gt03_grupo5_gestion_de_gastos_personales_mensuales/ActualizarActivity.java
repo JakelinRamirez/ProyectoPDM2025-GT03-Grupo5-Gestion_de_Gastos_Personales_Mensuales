@@ -1,45 +1,63 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import androidx.core.view.GravityCompat;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ConfiguracionActivity extends AppCompatActivity {
-
-    private Button btnActualizarUsuario, btnEliminarCuenta, btnCerrarSesion;
+public class ActualizarActivity extends AppCompatActivity {
+    private EditText editNombre, editEmail, editContrasena;
+    private Button btnGuardar;
     private DBHelper dbHelper;
-    private int usuarioId = 1; // Este valor debería venir del login o SharedPreferences
+    private int usuarioId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         // Usamos el layout base con el menú y la barra
         setContentView(R.layout.activity_base_drawer);
 
         // Inflar la vista específica de esta actividad dentro del contenedor base
         FrameLayout contentFrame = findViewById(R.id.content_frame);
-        View contentView = getLayoutInflater().inflate(R.layout.activity_configuracion, contentFrame, false);
+        View contentView = getLayoutInflater().inflate(R.layout.activity_actualizar, contentFrame, false);
         contentFrame.addView(contentView);
 
-        btnActualizarUsuario = contentView.findViewById(R.id.btnActualizarUsuario);
-        btnEliminarCuenta = contentView.findViewById(R.id.btnEliminarCuenta);
-        btnCerrarSesion = contentView.findViewById(R.id.btnCerrarSesion);
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        usuarioId = prefs.getInt("usuarioId", -1);
+
+        if (usuarioId == -1) {
+            Toast.makeText(this, "No se encontró el usuario", Toast.LENGTH_SHORT).show();
+            finish(); // o redirigir al login
+            return;
+        }
+
 
         dbHelper = new DBHelper(this);
+
+        editNombre = contentView.findViewById(R.id.editNombre);
+        editEmail = contentView.findViewById(R.id.editEmail);
+        editContrasena = contentView.findViewById(R.id.editContrasena);
+        btnGuardar = contentView.findViewById(R.id.btnGuardar);
 
         // Configurar el menú lateral
 
@@ -47,20 +65,36 @@ public class ConfiguracionActivity extends AppCompatActivity {
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         Toolbar toolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Configuracion de cuenta");
+        getSupportActionBar().setTitle("Actualizar");
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+        // Cargar datos del usuario
+        Cursor cursor = dbHelper.obtenerUsuarioPorId(usuarioId);
+        if (cursor.moveToFirst()) {
+            editNombre.setText(cursor.getString(cursor.getColumnIndexOrThrow("nombre")));
+            editEmail.setText(cursor.getString(cursor.getColumnIndexOrThrow("email")));
+            editContrasena.setText(cursor.getString(cursor.getColumnIndexOrThrow("contrasena")));
+        }
+        cursor.close();
 
-        btnActualizarUsuario.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ActualizarActivity.class);
-            intent.putExtra("usuarioId", usuarioId); // opcional si lo usas
-            startActivity(intent);
+        // Botón guardar cambios
+        btnGuardar.setOnClickListener(v -> {
+            String nuevoNombre = editNombre.getText().toString();
+            String nuevoEmail = editEmail.getText().toString();
+            String nuevaContrasena = editContrasena.getText().toString();
+
+            boolean actualizado = dbHelper.actualizarUsuario(usuarioId, nuevoNombre, nuevoEmail, nuevaContrasena);
+
+            if (actualizado) {
+                Toast.makeText(this, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ConfiguracionActivity.class);
+                startActivity(intent);
+                finish(); // Cierra esta actividad para evitar volver atrás con el botón
+            } else {
+                Toast.makeText(this, "Error al actualizar usuario", Toast.LENGTH_SHORT).show();
+            }
+
         });
-
-        btnEliminarCuenta.setOnClickListener(v -> mostrarConfirmacionEliminacion());
-
-        btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
-
 
         // Mostrar icono del menú (≡)
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,37 +128,5 @@ public class ConfiguracionActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
-    }
-
-    private void mostrarConfirmacionEliminacion() {
-        new AlertDialog.Builder(this)
-                .setTitle("¿Eliminar cuenta?")
-                .setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")
-                .setPositiveButton("Sí", (dialog, which) -> {
-                    eliminarCuenta();
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
-    }
-
-    private void eliminarCuenta() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int eliminados = db.delete("Usuario", "id = ?", new String[]{String.valueOf(usuarioId)});
-        db.close();
-
-        if (eliminados > 0) {
-            Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
-            cerrarSesion(); // Volver a login o salir
-        } else {
-            Toast.makeText(this, "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void cerrarSesion() {
-        // Aquí podrías borrar sesión guardada, SharedPreferences, etc.
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Evita volver con "atrás"
-        startActivity(intent);
-        finish();
     }
 }

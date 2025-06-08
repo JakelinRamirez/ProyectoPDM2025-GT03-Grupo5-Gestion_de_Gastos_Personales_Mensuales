@@ -1,5 +1,6 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -172,7 +173,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return total;
     }
 
-    // Método para obtener el objetivo mensual (más reciente)
+
     public double obtenerObjetivoMensual() {
         double objetivo = 0;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -190,5 +191,37 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return objetivo;
     }
+
+    // Obtener usuario por ID
+    public Cursor obtenerUsuarioPorId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM Usuario WHERE id = ?", new String[]{String.valueOf(id)});
+    }
+
+    // Actualizar usuario
+    public boolean actualizarUsuario(int id, String nombre, String email, String contrasena) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put("nombre", nombre);
+        valores.put("email", email);
+        valores.put("contrasena", contrasena);
+        int filas = db.update("Usuario", valores, "id = ?", new String[]{String.valueOf(id)});
+        return filas > 0;
+    }
+
+    public int obtenerIdUsuario(String email, String contrasena) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT id FROM Usuario WHERE email = ? AND contrasena = ?", new String[]{email, contrasena});
+
+        int id = -1;
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(0);
+        }
+
+        cursor.close();
+        db.close();
+        return id;
+    }
+
 
 }

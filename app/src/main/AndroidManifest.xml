@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ProyectoPDM2025GT03Grupo5Gestion_de_Gastos_Personales_Mensuales"
         tools:targetApi="31">
         <activity
+            android:name=".ActualizarActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerObjetivosActivity"
             android:exported="false" />
         <activity

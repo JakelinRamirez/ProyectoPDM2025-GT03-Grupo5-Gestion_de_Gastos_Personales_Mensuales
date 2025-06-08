@@ -1,13 +1,14 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales.ui.dashboard.DashboardActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (cursor.moveToFirst()) {
             // Usuario válido
+            int usuarioId = dbHelper.obtenerIdUsuario(correo, contrasena);
+            SharedPreferences prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+            prefs.edit().putInt("usuarioId", usuarioId).apply();
+
             Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, MainDashboard.class);
             startActivity(intent);
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
         }
+
 
         cursor.close();
         db.close();
