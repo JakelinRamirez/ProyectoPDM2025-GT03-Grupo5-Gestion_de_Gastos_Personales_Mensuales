@@ -1,5 +1,6 @@
 package com.example.proyectopdm2025_gt03_grupo5_gestion_de_gastos_personales_mensuales;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class RegistrarGastoActivity extends AppCompatActivity {
 
@@ -32,6 +35,8 @@ public class RegistrarGastoActivity extends AppCompatActivity {
 
         editMonto = findViewById(R.id.editMonto);
         editFecha = findViewById(R.id.editFecha);
+        editFecha.setOnClickListener(v -> mostrarDatePicker(editFecha));
+        editDescripcion = findViewById(R.id.editDescripcion);
         editDescripcion = findViewById(R.id.editDescripcion);
         spinnerCategoria = findViewById(R.id.spinnerCategoria);
         spinnerMetodo = findViewById(R.id.spinnerMetodo);
@@ -152,6 +157,13 @@ public class RegistrarGastoActivity extends AppCompatActivity {
         }
 
         db.close();
+    }
+    private void mostrarDatePicker(EditText editText) {
+        Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            String fecha = String.format(Locale.US, "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+            editText.setText(fecha);
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
 
